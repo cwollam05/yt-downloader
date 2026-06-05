@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Downloader</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#FF0000"/>
+        <path d="M10 8.5l6 3.5-6 3.5V8.5z" fill="white"/>
+      </svg>
+      <span>YT Downloader</span>
+    </div>
+
+    <h1>Download YouTube Videos</h1>
+    <p class="subtitle">Paste a YouTube link and choose your format</p>
+
+    <div class="input-group">
+      <label for="url">YouTube URL</label>
+      <input
+        type="url"
+        id="url"
+        placeholder="https://www.youtube.com/watch?v=..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+
+    <div class="format-group">
+      <label>Format</label>
+      <div class="format-buttons">
+        <button class="format-btn active" data-format="mp3">
+          <span class="format-icon">♪</span>
+          <span class="format-label">MP3</span>
+          <span class="format-desc">Audio only</span>
+        </button>
+        <button class="format-btn" data-format="mp4">
+          <span class="format-icon">▶</span>
+          <span class="format-label">MP4</span>
+          <span class="format-desc">Video + Audio</span>
+        </button>
+      </div>
+    </div>
+
+    <button class="download-btn" id="downloadBtn">
+      <span class="btn-icon">↓</span>
+      <span class="btn-text">Download</span>
+    </button>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
