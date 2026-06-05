@@ -1,13 +1,13 @@
 """
-Local backend for the YouTube Downloader UI.
-Requires: pip install flask yt-dlp flask-cors
-Run with: python server.py
+YouTube Downloader — Flask backend.
+Local:  python server.py
+Deploy: push to Railway (railway.app)
 """
 
 import os
 import re
-import tempfile
 import socket
+import tempfile
 from flask import Flask, request, send_file, jsonify
 
 app = Flask(__name__, static_folder='.', static_url_path='')
@@ -90,8 +90,9 @@ def download():
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     local_ip = socket.gethostbyname(socket.gethostname())
     print(f'YouTube Downloader server running at:')
-    print(f'  Local:   http://localhost:5000')
-    print(f'  Network: http://{local_ip}:5000  <-- use this on mobile')
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    print(f'  Local:   http://localhost:{port}')
+    print(f'  Network: http://{local_ip}:{port}  <-- use this on mobile')
+    app.run(host='0.0.0.0', port=port, debug=False)
