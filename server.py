@@ -36,8 +36,21 @@ def download():
 
     tmp_dir = tempfile.mkdtemp()
 
+    # Write cookies from environment variable to a temp file if provided
+    cookies_file = None
+    cookies_content = os.environ.get('YOUTUBE_COOKIES', '').strip()
+    if cookies_content:
+        cookies_file = os.path.join(tmp_dir, 'cookies.txt')
+        with open(cookies_file, 'w') as f:
+            f.write(cookies_content)
+
+    base_opts = {'quiet': True}
+    if cookies_file:
+        base_opts['cookiefile'] = cookies_file
+
     if fmt == 'mp3':
         ydl_opts = {
+            **base_opts,
             'format': 'bestaudio/best',
             'outtmpl': os.path.join(tmp_dir, '%(title)s.%(ext)s'),
             'postprocessors': [{
@@ -45,14 +58,13 @@ def download():
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
-            'quiet': True,
         }
     else:
         ydl_opts = {
+            **base_opts,
             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
             'outtmpl': os.path.join(tmp_dir, '%(title)s.%(ext)s'),
             'merge_output_format': 'mp4',
-            'quiet': True,
         }
 
     try:
