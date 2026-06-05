@@ -44,7 +44,7 @@ downloadBtn.addEventListener('click', async () => {
   setStatus('loading', `Preparing ${selectedFormat.toUpperCase()} download…`);
 
   try {
-    const response = await fetch('http://localhost:5000/download', {
+    const response = await fetch('/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, format: selectedFormat }),
@@ -67,7 +67,7 @@ downloadBtn.addEventListener('click', async () => {
     setStatus('success', `✓ "${filename}" is downloading`);
   } catch (err) {
     if (err.message.includes('Failed to fetch')) {
-      setStatus('error', 'Cannot reach the local server. Make sure server.py is running.');
+      setStatus('error', 'Cannot reach the server. Make sure server.py is running.');
     } else {
       setStatus('error', err.message);
     }

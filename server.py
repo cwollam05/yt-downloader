@@ -7,12 +7,15 @@ Run with: python server.py
 import os
 import re
 import tempfile
+import socket
 from flask import Flask, request, send_file, jsonify
-from flask_cors import CORS
-import yt_dlp
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__, static_folder='.', static_url_path='')
+
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 
 def safe_filename(name: str) -> str:
@@ -87,5 +90,8 @@ def download():
 
 
 if __name__ == '__main__':
-    print('YouTube Downloader server running at http://localhost:5000')
-    app.run(port=5000, debug=False)
+    local_ip = socket.gethostbyname(socket.gethostname())
+    print(f'YouTube Downloader server running at:')
+    print(f'  Local:   http://localhost:5000')
+    print(f'  Network: http://{local_ip}:5000  <-- use this on mobile')
+    app.run(host='0.0.0.0', port=5000, debug=False)
